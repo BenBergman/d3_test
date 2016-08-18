@@ -84,6 +84,12 @@ app.controller("MainController", ["$scope", "$uibModal", "$filter", "$http", fun
         "creditRefundable": 0,
         "creditNonRefundable": 0,
         "deduction": 0,
+        "types": {
+            "regular": 1,
+            "capital_gains": 0,
+            "dividends": 0,
+            "tax_free": 0,
+        },
     };
 
     $scope.currentIncome = 0;
@@ -139,6 +145,19 @@ app.controller("MainController", ["$scope", "$uibModal", "$filter", "$http", fun
     $scope.$watch('sliders.deduction', $scope.changeCreditsAndDeductions);
     $scope.sliderFormat = function(value) {
         return $filter('currency')(value, '$', 0);
+    };
+    $scope.balanceIncomeSliders = {
+        'regular': function() { rebalance(1, $scope.sliders.types, 'regular'); },
+        'capital_gains': function() { rebalance(1, $scope.sliders.types, 'capital_gains'); },
+        'dividends': function() { rebalance(1, $scope.sliders.types, 'dividends'); },
+        'tax_free': function() { rebalance(1, $scope.sliders.types, 'tax_free'); },
+    };
+    $scope.$watch('sliders.types.regular', $scope.balanceIncomeSliders.regular);
+    $scope.$watch('sliders.types.capital_gains', $scope.balanceIncomeSliders.capital_gains);
+    $scope.$watch('sliders.types.dividends', $scope.balanceIncomeSliders.dividends);
+    $scope.$watch('sliders.types.tax_free', $scope.balanceIncomeSliders.tax_free);
+    $scope.typesSliderFormat = function(value) {
+        return $filter('percentage')(value, 0);
     };
     $scope.openDonate = function() {
         var modalInstance = $uibModal.open({

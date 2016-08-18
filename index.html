@@ -34,6 +34,7 @@
 		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js" charset="utf-8"></script>
 		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.js" charset="utf-8"></script>
 		<script src="js/taxes.js" charset="utf-8"></script>
+		<script src="js/sliders.js" charset="utf-8"></script>
 
 		<link rel="stylesheet" href="angular_ui/ui-bootstrap-custom-1.3.3-csp.css">
 		<script src="angular_ui/ui-bootstrap-custom-tpls-1.3.3.min.js"></script>
@@ -177,6 +178,30 @@
 									</tr>
 								</tbody>
 							</table>
+						</uib-accordion-group>
+						<uib-accordion-group heading="How are different types of income taxed?" is-open="accordions.types" template-url="templates/group-template.html">
+							<p>
+                            Different types of income are taxed differently.
+							</p>
+							<p>
+                            Regular income
+							</p>
+							<slider ng-model="sliders.types.regular" formatter="typesSliderFormat(value)" min=0 max=1 step=0.001></slider>
+							<p>
+                            Capital gains
+							</p>
+							<slider ng-model="sliders.types.capital_gains" formatter="typesSliderFormat(value)" min=0 max=1 step=0.001></slider>
+							<p>
+                            Dividends
+							</p>
+							<slider ng-model="sliders.types.dividends" formatter="typesSliderFormat(value)" min=0 max=1 step=0.001></slider>
+							<p>
+                            Tax free income
+							</p>
+							<slider ng-model="sliders.types.tax_free" formatter="typesSliderFormat(value)" min=0 max=1 step=0.001></slider>
+							<button class="btn btn-default" ng-click="sliders.types.regular = 100; sliders.types.capital_gains = 0; sliders.types.dividends = 0; sliders.types.tax_free = 0">
+								Reset
+							</button>
 						</uib-accordion-group>
 					</uib-accordion>
 				</div>
