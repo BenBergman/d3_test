@@ -4,3 +4,5 @@
     - How does this credit affect the marginal rate? The marginal rate is the rate of tax owed on the next dollar of regular income. A credit will not shift or scale the marginal rate, but non-refundable credits should clip the marginal rate down to 0...?
     - Is the current marginal rate setup working for the non-refundable credit display section?
         - I think that is what the `if (tax_owed == 0)` section is for
+- [] break out pop-over descriptions to text stored outside of index.html? (reduce clutter and increase reusability)
+- [] improved technical definitions of dividends (eligible, other, and generic) in pop-overs
