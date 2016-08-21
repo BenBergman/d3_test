@@ -5,6 +5,9 @@ if (typeof module != "undefined") {
         taxes_owed: taxes_owed,
         marginal_rate: marginal_rate,
         effective_rate: effective_rate,
+        calculate_complex_taxes_for_income: calculate_complex_taxes_for_income,
+        calculate_complex_effective_rate_for_income_and_tax_owed: calculate_complex_effective_rate_for_income_and_tax_owed,
+        calculate_complex_marginal_rate_for_income: calculate_complex_marginal_rate_for_income,
     };
 }
 
@@ -120,4 +123,48 @@ function effective_rate(income, brackets) {
     }
     var rate = taxes_owed(income, brackets) / income;
     return rate < 0 ? 0 : rate;
+}
+
+
+function calculate_complex_taxes_for_income(income, income_weighting, general_deduction, general_refundable_credits, general_non_refundable_credits, federal_bracket, regional_bracket) {
+    var eligible_dividends_grossed_up = income * income_weighting * 1.38;
+    var other_dividends_grossed_up = income * income_weighting * 1.17;
+    var effective_income = income * (income_weighting.regular + income_weighting.capital_gains / 2) + eligible_dividends_grossed_up + other_dividends_grossed_up;
+
+    var federal_dividend_tax_credits = eligible_dividends_grossed_up * 0.1502 + other_dividends_grossed_up * 0.105;
+    var regional_dividend_tax_credits = eligible_dividends_grossed_up * 0.08 + other_dividends_grossed_up * 0.0083;
+
+    var federal_tax_owed = max(0, taxes_owed(effective_income - general_deduction, federal_bracket) - federal_dividend_tax_credits);
+    var regional_tax_owed = max(0, taxes_owed(effective_income - general_deduction, regional_bracket) - regional_dividend_tax_credits);
+    var tax_owed = federal_tax_owed + regional_tax_owed - general_refundable_credits;
+    if (tax_owed > 0) {
+        tax_owed -= general_non_refundable_credits;
+        if (tax_owed < 0) {
+            tax_owed = 0;
+        }
+    }
+    return tax_owed;
+}
+
+
+function calculate_complex_effective_rate_for_income_and_tax_owed(income, tax_owed) {
+    var eff_rate = 0;
+    if (income > 0) {
+        eff_rate = tax_owed / income;
+    }
+    return eff_rate;
+}
+
+
+function calculate_complex_marginal_rate_for_income(income, income_weighting, general_deduction, tax_owed, brackets) {
+    // TODO: marginal rate is tricky here because, since marginal rate is tax owed on next dollar, we need to know what the next dollar is...? Maybe assuming regular income is fine?
+    // TODO: marginal rate should be adjusted to reflect dividend tax credit...?
+    var eligible_dividends_grossed_up = income * income_weighting * 1.38;
+    var other_dividends_grossed_up = income * income_weighting * 1.17;
+    var effective_income = income * (income_weighting.regular + income_weighting.capital_gains / 2) + eligible_dividends_grossed_up + other_dividends_grossed_up;
+    var marg_rate = marginal_rate(effective_income - general_deduction, brackets);
+    if (tax_owed == 0) {
+        marg_rate = 0;
+    }
+    return marg_rate;
 }

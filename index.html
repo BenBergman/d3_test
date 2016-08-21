@@ -192,14 +192,18 @@
 							</p>
 							<slider ng-model="sliders.types.capital_gains" formatter="typesSliderFormat(value)" min=0 max=1 step=0.001></slider>
 							<p>
-                            Dividends
+                            Eligible dividends
 							</p>
-							<slider ng-model="sliders.types.dividends" formatter="typesSliderFormat(value)" min=0 max=1 step=0.001></slider>
+							<slider ng-model="sliders.types.eligible_dividends" formatter="typesSliderFormat(value)" min=0 max=1 step=0.001></slider>
+							<p>
+                            Other dividends
+							</p>
+							<slider ng-model="sliders.types.other_dividends" formatter="typesSliderFormat(value)" min=0 max=1 step=0.001></slider>
 							<p>
                             Tax free income
 							</p>
 							<slider ng-model="sliders.types.tax_free" formatter="typesSliderFormat(value)" min=0 max=1 step=0.001></slider>
-							<button class="btn btn-default" ng-click="sliders.types.regular = 100; sliders.types.capital_gains = 0; sliders.types.dividends = 0; sliders.types.tax_free = 0">
+							<button class="btn btn-default" ng-click="sliders.types.regular = 1; sliders.types.capital_gains = 0; sliders.types.elegible_dividends = 0; sliders.types.other_dividends = 0; sliders.types.tax_free = 0">
 								Reset
 							</button>
 						</uib-accordion-group>

@@ -138,3 +138,47 @@ test('get effective tax rate', t => {
     ];
     t.is(taxes.effective_rate(30000, brackets), 0.2);
 })
+
+
+
+
+// TODO: test these tests and fix all names
+
+
+test('high income, all regular', t => {
+    var federal_bracket = [
+        [45282, 0.1500],
+        [90563, 0.2050],
+        [140388, 0.2600],
+        [200000, 0.2900],
+        [999999999999, 0.3300]
+    ];
+    var regional_bracket = [
+        [31000, 0.1080],
+        [67000, 0.1275],
+        [999999999999, 0.1740]
+    ];
+    var brackets = taxes.add_brackets(federal_bracket, regional_bracket);
+    t.is(taxes.calculate_complex_taxes_for_income(500000, {"regular": 1, "capital_gains": 0, "eligible_dividends": 0, "other_dividends": 0, "tax_free": 0}, 0, 0, 0, federal_bracket, regional_bracket), 225889.31);
+})
+
+
+test('high income, even division', t => {
+    var federal_bracket = [
+        [45282, 0.1500],
+        [90563, 0.2050],
+        [140388, 0.2600],
+        [200000, 0.2900],
+        [999999999999, 0.3300]
+    ];
+    var regional_bracket = [
+        [31000, 0.1080],
+        [67000, 0.1275],
+        [999999999999, 0.1740]
+    ];
+    var brackets = taxes.add_brackets(federal_bracket, regional_bracket);
+    t.is(taxes.calculate_complex_taxes_for_income(500000, {"regular": 0.2, "capital_gains": 0.2, "eligible_dividends": 0.2, "other_dividends": 0.2, "tax_free": 0.2}, 0, 0, 0, federal_bracket, regional_bracket), 132985.61);
+})
+
+
+// TODO: figure out how to test calculate_complex_marginal_rate_for_income

@@ -87,7 +87,8 @@ app.controller("MainController", ["$scope", "$uibModal", "$filter", "$http", fun
         "types": {
             "regular": 1,
             "capital_gains": 0,
-            "dividends": 0,
+            "eligible_dividends": 0,
+            "other_dividends": 0,
             "tax_free": 0,
         },
     };

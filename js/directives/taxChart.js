@@ -47,23 +47,16 @@ app.directive('taxChart', ['$window', function($window) {
 
 
                 for (var i = 0; i <= 250000; i += 100) {
-                    var tax_owed = taxes_owed(i - (scope.accordions.credits ? scope.sliders.deduction : 0), federal_bracket);
-                    tax_owed += taxes_owed(i - (scope.accordions.credits ? scope.sliders.deduction : 0), regional_bracket);
-                    tax_owed -= (scope.accordions.credits ? scope.sliders.creditRefundable : 0);
-                    if (tax_owed > 0) {
-                        tax_owed -= scope.accordions.credits ? scope.sliders.creditNonRefundable : 0;
-                        if (tax_owed < 0) {
-                            tax_owed = 0;
-                        }
-                    }
-                    var eff_rate = 0;
-                    if (i > 0) {
-                        eff_rate = tax_owed / i;
-                    }
-                    var marg_rate = marginal_rate(i - (scope.accordions.credits ? scope.sliders.deduction : 0), brackets);
-                    if (tax_owed == 0) {
-                        marg_rate = 0;
-                    }
+                    var general_deduction = (scope.accordions.credits ? scope.sliders.deduction : 0);
+                    var general_refundable_credits = (scope.accordions.credits ? scope.sliders.creditRefundable : 0);
+                    var general_non_refundable_credits = (scope.accordions.credits ? scope.sliders.creditNonRefundable : 0);
+
+                    var income_weighting = (scope.accordions.types ? scope.sliders.types : { "regular": 1, "capital_gains": 0, "eligible_dividends": 0, "other_dividends": 0, "tax_free": 0 });
+
+                    var tax_owed = calculate_complex_taxes_for_income(i, income_weighting, general_deduction, general_refundable_credits, general_non_refundable_credits);
+                    var eff_rate = calculate_complex_effective_rate_for_income_and_tax_owed(i, tax_owed);
+                    var marg_rate = calculate_complex_marginal_rate_for_income(i, income_weighting, general_deduction, tax_owed, brackets);
+
                     scope.data.push({
                         "Income": i,
                         "Tax": tax_owed,

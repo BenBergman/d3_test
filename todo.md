@@ -1,0 +1,6 @@
+- [] test all tests
+- [] wire up sliders to trigger recalculation
+- [] integrate dividend credits into marginal rate...?
+    - How does this credit affect the marginal rate? The marginal rate is the rate of tax owed on the next dollar of regular income. A credit will not shift or scale the marginal rate, but non-refundable credits should clip the marginal rate down to 0...?
+    - Is the current marginal rate setup working for the non-refundable credit display section?
+        - I think that is what the `if (tax_owed == 0)` section is for
