@@ -156,7 +156,8 @@ app.controller("MainController", ["$scope", "$uibModal", "$filter", "$http", fun
     };
     $scope.$watch('sliders.types.regular', $scope.balanceIncomeSliders.regular);
     $scope.$watch('sliders.types.capital_gains', $scope.balanceIncomeSliders.capital_gains);
-    $scope.$watch('sliders.types.dividends', $scope.balanceIncomeSliders.dividends);
+    $scope.$watch('sliders.types.eligible_dividends', $scope.balanceIncomeSliders.eligible_dividends);
+    $scope.$watch('sliders.types.other_dividends', $scope.balanceIncomeSliders.other_dividends);
     $scope.$watch('sliders.types.tax_free', $scope.balanceIncomeSliders.tax_free);
     $scope.typesSliderFormat = function(value) {
         return $filter('percentage')(value, 0);

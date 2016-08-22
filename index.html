@@ -125,29 +125,6 @@
 							Mouse over the graph and see for yourself the taxes for each income level!
 							</p>
 						</uib-accordion-group>
-						<uib-accordion-group heading="How do tax credits and deductions affect my taxes?" is-open="accordions.credits" template-url="templates/group-template.html">
-							<p>
-							Credits and deductions are similar in that they both reduce the taxes you owe, but credits are applied directly to your taxes owed and deductions are applied to the income you earned. As a result, credits affect all earners by the same amount of dollars (ie. a $100 credit saves $100 for someone earning $20,000 and for someone earning $200,000) while deductions come "off the top" and effectively lower your income tax bracket (ie. a $100 deduction for someone currently in a lower bracket of 10% would save $10, but someone in a 30% tax bracket would save $30).
-							</p>
-							<p>
-							Try adjusting these sliders to see the approximate effects different types of credits and deductions have on your taxes!
-							</p>
-							<p uib-popover="Refundable tax credits are very similar to the government writing you a cheque at the end of the year, regardless of what you earned or how much you owe on your taxes. If you owe $0 or $50,000 in taxes, you will receive the same benefit." popover-trigger="mouseenter">
-							Credits (Refundable)<sup><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></sup>:
-							</p>
-							<slider ng-model="sliders.creditRefundable" formatter="sliderFormat(value)" min="min" max="max"></slider>
-							<p uib-popover="Non-refundable tax credits can only cancel out other taxes that you owe. You will only receive a benefit if you otherwise owe money for taxes." popover-trigger="mouseenter">
-							Credits (Non-refundable)<sup><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></sup>:
-							</p>
-							<slider ng-model="sliders.creditNonRefundable" formatter="sliderFormat(value)" min="min" max="max"></slider>
-							<p uib-popover="Tax deductions effectively reduce the amount of your income for the year that gets taxed. Note that the reduction in taxes owed is less than the amount of the deduction. If you have chosen to take on an additional expense to get this deduction (eg. an investment loan), for every dollar you spend you are saving only a fraction of that on your taxes. Without accounting for any other benfits of the expense, this is a net loss." popover-trigger="mouseenter">
-							Deductions<sup><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></sup>:
-							</p>
-							<slider ng-model="sliders.deduction" formatter="sliderFormat(value)" min="min" max="max"></slider>
-							<button class="btn btn-default" ng-click="sliders.creditRefundable = 0; sliders.creditNonRefundable = 0; sliders.deduction = 0">
-								Reset
-							</button>
-						</uib-accordion-group>
 						<uib-accordion-group heading="What taxes do I pay?" is-open="accordions.breakdown" template-url="templates/group-template.html">
 							<p>
 							The taxes you pay on your income each year are broken into two main categories: Federal and Provicial. Each of these respective governments has their own tax rate which are applied on your income independently. As a result, excess credits and deductions applied to one income tax cannot be carried over to the other.
@@ -179,9 +156,35 @@
 								</tbody>
 							</table>
 						</uib-accordion-group>
+						<uib-accordion-group heading="How do tax credits and deductions affect my taxes?" is-open="accordions.credits" template-url="templates/group-template.html">
+							<p>
+							Credits and deductions are similar in that they both reduce the taxes you owe, but credits are applied directly to your taxes owed and deductions are applied to the income you earned. As a result, credits affect all earners by the same amount of dollars (ie. a $100 credit saves $100 for someone earning $20,000 and for someone earning $200,000) while deductions come "off the top" and effectively lower your income tax bracket (ie. a $100 deduction for someone currently in a lower bracket of 10% would save $10, but someone in a 30% tax bracket would save $30).
+							</p>
+							<p>
+							Try adjusting these sliders to see the approximate effects different types of credits and deductions have on your taxes!
+							</p>
+							<p uib-popover="Refundable tax credits are very similar to the government writing you a cheque at the end of the year, regardless of what you earned or how much you owe on your taxes. If you owe $0 or $50,000 in taxes, you will receive the same benefit." popover-trigger="mouseenter">
+							Credits (Refundable)<sup><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></sup>:
+							</p>
+							<slider ng-model="sliders.creditRefundable" formatter="sliderFormat(value)" min="min" max="max"></slider>
+							<p uib-popover="Non-refundable tax credits can only cancel out other taxes that you owe. You will only receive a benefit if you otherwise owe money for taxes." popover-trigger="mouseenter">
+							Credits (Non-refundable)<sup><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></sup>:
+							</p>
+							<slider ng-model="sliders.creditNonRefundable" formatter="sliderFormat(value)" min="min" max="max"></slider>
+							<p uib-popover="Tax deductions effectively reduce the amount of your income for the year that gets taxed. Note that the reduction in taxes owed is less than the amount of the deduction. If you have chosen to take on an additional expense to get this deduction (eg. an investment loan), for every dollar you spend you are saving only a fraction of that on your taxes. Without accounting for any other benfits of the expense, this is a net loss." popover-trigger="mouseenter">
+							Deductions<sup><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></sup>:
+							</p>
+							<slider ng-model="sliders.deduction" formatter="sliderFormat(value)" min="min" max="max"></slider>
+							<button class="btn btn-default" ng-click="sliders.creditRefundable = 0; sliders.creditNonRefundable = 0; sliders.deduction = 0">
+								Reset
+							</button>
+						</uib-accordion-group>
 						<uib-accordion-group heading="How are different types of income taxed?" is-open="accordions.types" template-url="templates/group-template.html">
 							<p>
-                            Have you ever wondered why the rich always seem to get richer? Part of the reason is that different types of income are taxed differently. The type of income most people deal with is considered "regular income". This is what you get when you cash your paycheque or earn interest at the bank. When you start investing your money in stocks and other properties, you earn income in the form of capital gains and dividends. Only half of your capital gains are taxed as regular income. Dividends are a bit more complicated, but you basically receive a tax credit for the dividend income you have received. If the amounts of the different types of income that you have are just right, this tax credit could even cancel out the taxes owed on the dividend income and then some!
+                            Have you ever wondered why the rich always seem to get richer? Part of the reason is that different types of income are taxed differently.
+                            </p>
+                            <p>
+                            The type of income most people deal with is considered "regular income". This is what you get when you cash your paycheque or earn interest at the bank. When you start investing your money in stocks and other properties, you earn income in the form of capital gains and dividends. Only half of your capital gains are taxed as regular income. Dividends are a bit more complicated, but you basically receive a tax credit for the dividend income you have received. If the amounts of the different types of income that you have are just right, this tax credit could even cancel out the taxes owed on the dividend income and then some!
 							</p>
 							<p>
 							Try adjusting these sliders to see different mixes of income are taxed!
