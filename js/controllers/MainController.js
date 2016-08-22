@@ -148,10 +148,11 @@ app.controller("MainController", ["$scope", "$uibModal", "$filter", "$http", fun
         return $filter('currency')(value, '$', 0);
     };
     $scope.balanceIncomeSliders = {
-        'regular': function() { rebalance(1, $scope.sliders.types, 'regular'); },
-        'capital_gains': function() { rebalance(1, $scope.sliders.types, 'capital_gains'); },
-        'dividends': function() { rebalance(1, $scope.sliders.types, 'dividends'); },
-        'tax_free': function() { rebalance(1, $scope.sliders.types, 'tax_free'); },
+        'regular': function() { rebalance(1, $scope.sliders.types, 'regular'); $scope.calculateData(); $scope.render(); },
+        'capital_gains': function() { rebalance(1, $scope.sliders.types, 'capital_gains'); $scope.calculateData(); $scope.render(); },
+        'eligible_dividends': function() { rebalance(1, $scope.sliders.types, 'eligible_dividends'); $scope.calculateData(); $scope.render(); },
+        'other_dividends': function() { rebalance(1, $scope.sliders.types, 'other_dividends'); $scope.calculateData(); $scope.render(); },
+        'tax_free': function() { rebalance(1, $scope.sliders.types, 'tax_free'); $scope.calculateData(); $scope.render(); },
     };
     $scope.$watch('sliders.types.regular', $scope.balanceIncomeSliders.regular);
     $scope.$watch('sliders.types.capital_gains', $scope.balanceIncomeSliders.capital_gains);

@@ -51,7 +51,6 @@ app.directive('taxChart', ['$window', function($window) {
                 var general_non_refundable_credits = (scope.accordions.credits ? scope.sliders.creditNonRefundable : 0);
 
                 var income_weighting = (scope.accordions.types ? scope.sliders.types : { "regular": 1, "capital_gains": 0, "eligible_dividends": 0, "other_dividends": 0, "tax_free": 0 });
-                var income_weighting = { "regular": 1, "capital_gains": 0, "eligible_dividends": 0, "other_dividends": 0, "tax_free": 0 };
 
                 for (var i = 0; i <= 250000; i += 100) {
                     var tax_owed = calculate_complex_taxes_for_income(i, income_weighting, general_deduction, general_refundable_credits, general_non_refundable_credits, federal_bracket, regional_bracket);
