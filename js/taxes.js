@@ -126,6 +126,15 @@ function effective_rate(income, brackets) {
 }
 
 
+function max(a, b) {
+    if (a > b) {
+        return a;
+    } else {
+        return b;
+    }
+}
+
+
 function calculate_complex_taxes_for_income(income, income_weighting, general_deduction, general_refundable_credits, general_non_refundable_credits, federal_bracket, regional_bracket) {
     var effective_income = calculate_effective_income(income, income_weighting);
 

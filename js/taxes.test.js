@@ -146,38 +146,44 @@ test('get effective tax rate', t => {
 
 
 test('high income, all regular', t => {
-    var federal_bracket = [
+    var federal_bracket = taxes.subtract_brackets([
         [45282, 0.1500],
         [90563, 0.2050],
         [140388, 0.2600],
         [200000, 0.2900],
         [999999999999, 0.3300]
-    ];
-    var regional_bracket = [
+    ], [
+        [11474, 0.1500]
+    ]);
+    var regional_bracket = taxes.subtract_brackets([
         [31000, 0.1080],
         [67000, 0.1275],
         [999999999999, 0.1740]
-    ];
-    var brackets = taxes.add_brackets(federal_bracket, regional_bracket);
-    t.is(taxes.calculate_complex_taxes_for_income(500000, {"regular": 1, "capital_gains": 0, "eligible_dividends": 0, "other_dividends": 0, "tax_free": 0}, 0, 0, 0, federal_bracket, regional_bracket), 225889.31);
+    ], [
+        [9134, 0.1080]
+    ]);
+    t.is(taxes.calculate_complex_taxes_for_income(500000, {"regular": 1, "capital_gains": 0, "eligible_dividends": 0, "other_dividends": 0, "tax_free": 0}, 0, 0, 0, federal_bracket, regional_bracket), 225889.31300000002);
 })
 
 
 test('high income, even division', t => {
-    var federal_bracket = [
+    var federal_bracket = taxes.subtract_brackets([
         [45282, 0.1500],
         [90563, 0.2050],
         [140388, 0.2600],
         [200000, 0.2900],
         [999999999999, 0.3300]
-    ];
-    var regional_bracket = [
+    ], [
+        [11474, 0.1500]
+    ]);
+    var regional_bracket = taxes.subtract_brackets([
         [31000, 0.1080],
         [67000, 0.1275],
         [999999999999, 0.1740]
-    ];
-    var brackets = taxes.add_brackets(federal_bracket, regional_bracket);
-    t.is(taxes.calculate_complex_taxes_for_income(500000, {"regular": 0.2, "capital_gains": 0.2, "eligible_dividends": 0.2, "other_dividends": 0.2, "tax_free": 0.2}, 0, 0, 0, federal_bracket, regional_bracket), 132985.61);
+    ], [
+        [9134, 0.1080]
+    ]);
+    t.is(taxes.calculate_complex_taxes_for_income(500000, {"regular": 0.2, "capital_gains": 0.2, "eligible_dividends": 0.2, "other_dividends": 0.2, "tax_free": 0.2}, 0, 0, 0, federal_bracket, regional_bracket), 132985.61299999998);
 })
 
 
