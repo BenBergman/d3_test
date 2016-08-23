@@ -6,8 +6,14 @@ app.directive('taxChart', ['$window', function($window) {
                 var federal_bracket = subtract_brackets(scope.rawBrackets.Federal.income, scope.rawBrackets.Federal.personalAmount);
                 federal_bracket = bracket_mult(federal_bracket, 1 - scope.rawBrackets[scope.currentRegion].abatement)
                 var regional_bracket = subtract_brackets(scope.rawBrackets[scope.currentRegion].income, scope.rawBrackets[scope.currentRegion].personalAmount);
-
                 var brackets = add_brackets(federal_bracket, regional_bracket);
+                brackets = bracket_floor(brackets);
+
+                var cpp_info = scope.rawBrackets[scope.rawBrackets[scope.currentRegion].pension];
+                if (typeof cpp_info !== 'undefined') {
+                    var cpp_bracket = subtract_brackets(cpp_info.income, cpp_info.personalAmount);
+                    brackets = add_brackets(brackets, cpp_bracket);
+                }
 
 
                 scope.data = [];
@@ -20,6 +26,10 @@ app.directive('taxChart', ['$window', function($window) {
                     {
                         "name": "Provincial",
                         "values": []
+                    },
+                    {
+                        "name": "Pension",
+                        "values": []
                     }
                 ];
 
@@ -30,6 +40,10 @@ app.directive('taxChart', ['$window', function($window) {
                     },
                     {
                         "name": "Provincial",
+                        "values": []
+                    },
+                    {
+                        "name": "Pension",
                         "values": []
                     }
                 ];
@@ -42,6 +56,10 @@ app.directive('taxChart', ['$window', function($window) {
                     {
                         "name": "Provincial",
                         "values": []
+                    },
+                    {
+                        "name": "Pension",
+                        "values": []
                     }
                 ];
 
@@ -53,7 +71,7 @@ app.directive('taxChart', ['$window', function($window) {
                 var income_weighting = (scope.accordions.types ? scope.sliders.types : { "regular": 1, "capital_gains": 0, "eligible_dividends": 0, "other_dividends": 0, "tax_free": 0 });
 
                 for (var i = 0; i <= 250000; i += 100) {
-                    var tax_owed = calculate_complex_taxes_for_income(i, income_weighting, general_deduction, general_refundable_credits, general_non_refundable_credits, federal_bracket, regional_bracket);
+                    var tax_owed = calculate_complex_taxes_for_income(i, income_weighting, general_deduction, general_refundable_credits, general_non_refundable_credits, federal_bracket, regional_bracket, cpp_bracket);
                     var eff_rate = calculate_complex_effective_rate_for_income_and_tax_owed(i, tax_owed);
                     var marg_rate = calculate_complex_marginal_rate_for_income(i, income_weighting, general_deduction, tax_owed, brackets);
 
@@ -72,6 +90,10 @@ app.directive('taxChart', ['$window', function($window) {
                         "income": i,
                         "tax": taxes_owed(i, regional_bracket),
                     });
+                    d3.map(scope.taxes, function(d) { return d.name; }).get("Pension").values.push({
+                        "income": i,
+                        "tax": taxes_owed(i, cpp_bracket),
+                    });
 
                     d3.map(scope.effective, function(d) { return d.name; }).get("Federal").values.push({
                         "income": i,
@@ -81,6 +103,10 @@ app.directive('taxChart', ['$window', function($window) {
                         "income": i,
                         "effective": effective_rate(i, regional_bracket),
                     });
+                    d3.map(scope.effective, function(d) { return d.name; }).get("Pension").values.push({
+                        "income": i,
+                        "effective": effective_rate(i, cpp_bracket),
+                    });
 
                     d3.map(scope.marginal, function(d) { return d.name; }).get("Federal").values.push({
                         "income": i,
@@ -89,6 +115,10 @@ app.directive('taxChart', ['$window', function($window) {
                     d3.map(scope.marginal, function(d) { return d.name; }).get("Provincial").values.push({
                         "income": i,
                         "marginal": marginal_rate(i, regional_bracket),
+                    });
+                    d3.map(scope.marginal, function(d) { return d.name; }).get("Pension").values.push({
+                        "income": i,
+                        "marginal": marginal_rate(i, cpp_bracket),
                     });
                 }
             }
@@ -285,6 +315,10 @@ app.directive('taxChart', ['$window', function($window) {
                         .get("Provincial")
                         .values[dataIndex]
                         .tax;
+                    scope.currentPensionTax = d3.map(scope.taxes, function(d) { return d.name; })
+                        .get("Pension")
+                        .values[dataIndex]
+                        .tax;
 
                     scope.currentFederalEff = d3.map(scope.effective, function(d) { return d.name; })
                         .get("Federal")
@@ -294,6 +328,10 @@ app.directive('taxChart', ['$window', function($window) {
                         .get("Provincial")
                         .values[dataIndex]
                         .effective;
+                    scope.currentPensionEff = d3.map(scope.effective, function(d) { return d.name; })
+                        .get("Pension")
+                        .values[dataIndex]
+                        .effective;
 
                     scope.currentFederalMarg = d3.map(scope.marginal, function(d) { return d.name; })
                         .get("Federal")
@@ -301,6 +339,10 @@ app.directive('taxChart', ['$window', function($window) {
                         .marginal;
                     scope.currentProvincialMarg = d3.map(scope.marginal, function(d) { return d.name; })
                         .get("Provincial")
+                        .values[dataIndex]
+                        .marginal;
+                    scope.currentPensionMarg = d3.map(scope.marginal, function(d) { return d.name; })
+                        .get("Pension")
                         .values[dataIndex]
                         .marginal;
 

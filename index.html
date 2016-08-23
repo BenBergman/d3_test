@@ -135,6 +135,7 @@
 										<th></th>
 										<th>Federal</th>
 										<th>Provincial</th>
+										<th>CPP</th><!-- TODO: make this dynamic so that it pull CPP/QPP correctly -->
 									</tr>
 								</thead>
 								<tbody>
@@ -142,16 +143,19 @@
 										<th>Marginal Rate</th>
 										<td>{{ currentFederalMarg|percentage:0 }}</td>
 										<td>{{ currentProvincialMarg|percentage:0 }}</td>
+										<td>{{ currentPensionMarg|percentage:0 }}</td>
 									</tr>
 									<tr>
 										<th>Taxes Due</th>
 										<td>{{ currentFederalTax|currency:$:0 }}</td>
 										<td>{{ currentProvincialTax|currency:$:0 }}</td>
+										<td>{{ currentPensionTax|currency:$:0 }}</td>
 									</tr>
 									<tr>
 										<th>Effective Rate</th>
 										<td>{{ currentFederalEff|percentage:0 }}</td>
 										<td>{{ currentProvincialEff|percentage:0 }}</td>
+										<td>{{ currentPensionEff|percentage:0 }}</td>
 									</tr>
 								</tbody>
 							</table>

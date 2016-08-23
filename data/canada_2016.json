@@ -16,6 +16,24 @@
         "Yukon"
         ],
     "rawBrackets": {
+        "CPP": {
+            "income": [
+                [54900, 0.0495],
+                [999999999999, 0.0]
+            ],
+            "personalAmount": [
+                [3500, 0.0495]
+            ]
+        },
+        "QPP": {
+            "income": [
+                [54900, 0.05325],
+                [999999999999, 0.0]
+            ],
+            "personalAmount": [
+                [3500, 0.05325]
+            ]
+        },
         "Federal": {
             "income": [
                 [45282, 0.1500],
@@ -30,6 +48,7 @@
         },
         "Alberta": {
             "abatement": 0.0,
+            "pension": "CPP",
             "income": [
                 [125000, 0.10],
                 [150000, 0.12],
@@ -43,6 +62,7 @@
         },
         "British Columbia": {
             "abatement": 0.0,
+            "pension": "CPP",
             "income": [
                 [38210, 0.0506],
                 [76421, 0.0770],
@@ -56,6 +76,7 @@
         },
         "Manitoba": {
             "abatement": 0.0,
+            "pension": "CPP",
             "income": [
                 [31000, 0.1080],
                 [67000, 0.1275],
@@ -67,6 +88,7 @@
         },
         "Ontario": {
             "abatement": 0.0,
+            "pension": "CPP",
             "income": [
                 [41536, 0.0505],
                 [83075, 0.0915],
@@ -80,6 +102,7 @@
         },
         "Quebec": {
             "abatement": 0.165,
+            "pension": "QPP",
             "income": [
                 [42390, 0.1600],
                 [84780, 0.2000],
@@ -92,6 +115,7 @@
         },
         "Saskatchewan": {
             "abatement": 0.0,
+            "pension": "CPP",
             "income": [
                 [44601, 0.11],
                 [127430, 0.13],
@@ -103,6 +127,7 @@
         },
         "New Brunswick": {
             "abatement": 0.0,
+            "pension": "CPP",
             "income": [
                 [40492, 0.0968],
                 [80985, 0.1482],
@@ -116,6 +141,7 @@
         },
         "Newfoundland & Labrador": {
             "abatement": 0.0,
+            "pension": "CPP",
             "income": [
                 [35148, 0.0820],
                 [70295, 0.1350],
@@ -129,6 +155,7 @@
         },
         "Nova Scotia": {
             "abatement": 0.0,
+            "pension": "CPP",
             "income": [
                 [29590, 0.0879],
                 [59180, 0.1495],
@@ -142,6 +169,7 @@
         },
         "Prince Edward Island": {
             "abatement": 0.0,
+            "pension": "CPP",
             "income": [
                 [31984, 0.098],
                 [63969, 0.138],
@@ -153,6 +181,7 @@
         },
         "Northwest Territories": {
             "abatement": 0.0,
+            "pension": "CPP",
             "income": [
                 [41011, 0.0590],
                 [82024, 0.0860],
@@ -165,6 +194,7 @@
         },
         "Nunavut": {
             "abatement": 0.0,
+            "pension": "CPP",
             "income": [
                 [43176, 0.040],
                 [86351, 0.070],
@@ -177,6 +207,7 @@
         },
         "Yukon": {
             "abatement": 0.0,
+            "pension": "CPP",
             "income": [
                 [45282, 0.064],
                 [90563, 0.090],
