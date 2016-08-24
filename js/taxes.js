@@ -144,7 +144,7 @@ function max(a, b) {
 }
 
 
-function calculate_complex_taxes_for_income(income, income_weighting, general_deduction, general_refundable_credits, general_non_refundable_credits, federal_bracket, regional_bracket, cpp_bracket) {
+function calculate_complex_taxes_for_income(income, income_weighting, general_deduction, general_refundable_credits, general_non_refundable_credits, federal_bracket, regional_bracket, cpp_bracket, ei_bracket) {
     var effective_income = calculate_effective_income(income, income_weighting);
 
     var eligible_dividends_grossed_up = calculate_eligible_dividend_income(income, income_weighting);
@@ -156,8 +156,9 @@ function calculate_complex_taxes_for_income(income, income_weighting, general_de
     var federal_tax_owed = max(0, taxes_owed(effective_income - general_deduction, federal_bracket) - federal_dividend_tax_credits);
     var regional_tax_owed = max(0, taxes_owed(effective_income - general_deduction, regional_bracket) - regional_dividend_tax_credits);
     var cpp_contribution_owed = taxes_owed(effective_income, cpp_bracket);
+    var ei_contribution_owed = taxes_owed(effective_income, ei_bracket);
 
-    var tax_owed = federal_tax_owed + regional_tax_owed + cpp_contribution_owed - general_refundable_credits;
+    var tax_owed = federal_tax_owed + regional_tax_owed + cpp_contribution_owed + ei_contribution_owed - general_refundable_credits;
     if (tax_owed > 0) {
         tax_owed -= general_non_refundable_credits;
         if (tax_owed < 0) {
