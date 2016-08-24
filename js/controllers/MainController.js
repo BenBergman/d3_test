@@ -4,15 +4,18 @@ app.controller("MainController", ["$scope", "$uibModal", "$filter", "$http", fun
             $scope.usersRegion = data.geoplugin_regionName;
             if ($scope.regions.indexOf($scope.usersRegion) >= 0) {
                 $scope.currentRegion = $scope.usersRegion;
+                $scope.regionPension = $scope.rawBrackets[$scope.currentRegion].pension;
             } else {
                 $scope.usersRegion = "no_region_match";
                 $scope.currentRegion = $scope.defaultRegion;
+                $scope.regionPension = $scope.rawBrackets[$scope.currentRegion].pension;
             }
         })
         .error(function() {
             $scope.usersRegion = "geoip_error";
             if ($scope.defaultRegion != null) {
                 $scope.currentRegion = $scope.defaultRegion;
+                $scope.regionPension = $scope.rawBrackets[$scope.currentRegion].pension;
             }
         });
 
@@ -22,15 +25,18 @@ app.controller("MainController", ["$scope", "$uibModal", "$filter", "$http", fun
             $scope.usersRegion = data.region_name;
             if ($scope.regions.indexOf($scope.usersRegion) >= 0) {
                 $scope.currentRegion = $scope.usersRegion;
+                $scope.regionPension = $scope.rawBrackets[$scope.currentRegion].pension;
             } else {
                 $scope.usersRegion = "no_region_match";
                 $scope.currentRegion = $scope.defaultRegion;
+                $scope.regionPension = $scope.rawBrackets[$scope.currentRegion].pension;
             }
         })
         .error(function() {
             $scope.usersRegion = "geoip_error";
             if ($scope.defaultRegion != null) {
                 $scope.currentRegion = $scope.defaultRegion;
+                $scope.regionPension = $scope.rawBrackets[$scope.currentRegion].pension;
             }
         });
 
@@ -39,15 +45,18 @@ app.controller("MainController", ["$scope", "$uibModal", "$filter", "$http", fun
             $scope.usersRegion = data.region;
             if ($scope.regions.indexOf($scope.usersRegion) >= 0) {
                 $scope.currentRegion = $scope.usersRegion;
+                $scope.regionPension = $scope.rawBrackets[$scope.currentRegion].pension;
             } else {
                 $scope.usersRegion = "no_region_match";
                 $scope.currentRegion = $scope.defaultRegion;
+                $scope.regionPension = $scope.rawBrackets[$scope.currentRegion].pension;
             }
         })
         .error(function() {
             $scope.usersRegion = "geoip_error";
             if ($scope.defaultRegion != null) {
                 $scope.currentRegion = $scope.defaultRegion;
+                $scope.regionPension = $scope.rawBrackets[$scope.currentRegion].pension;
             }
         });
     */
@@ -59,10 +68,12 @@ app.controller("MainController", ["$scope", "$uibModal", "$filter", "$http", fun
             }
             if (["geoip_error", "geocode_error", "no_region_match"].indexOf($scope.usersRegion) >= 0) {
                 $scope.currentRegion = $scope.defaultRegion;
+                $scope.regionPension = $scope.rawBrackets[$scope.currentRegion].pension;
             } else if ($scope.usersRegion == null) {
                 // Give geoip a chance to match the user's region
             } else {
                 $scope.currentRegion = $scope.usersRegion;
+                $scope.regionPension = $scope.rawBrackets[$scope.currentRegion].pension;
             }
         });
 
@@ -117,6 +128,7 @@ app.controller("MainController", ["$scope", "$uibModal", "$filter", "$http", fun
 
     $scope.doneFirstRender = false;
     $scope.currentRegion = "Province";
+    $scope.regionPension = "CPP";
     $scope.rawBrackets = {
         "Federal": {
             "income": [
@@ -139,6 +151,7 @@ app.controller("MainController", ["$scope", "$uibModal", "$filter", "$http", fun
     $scope.data = [];
     $scope.changeRegion = function(region) {
         $scope.currentRegion = region;
+        $scope.regionPension = $scope.rawBrackets[$scope.currentRegion].pension;
     };
     $scope.renderRegion = function() {
         $scope.calculateData();
